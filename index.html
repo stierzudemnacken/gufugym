@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GUFU</title>
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="PR Tracker">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h1>GUFUGYM</h1>
+
+  <div style="margin-bottom: 1rem;">
+    <button id="addExerciseBtn">+ ADD</button>
+    <button id="exportBtn">EXPORT</button>
+    <input type="file" id="importInput" accept=".json" style="display:none;">
+    <button id="importBtn">IMPORT</button>
+  </div>
+
+
+  <div id="exercise-list"></div>
+
+  <p id="status" class="status-toast"></p>
+
+  <script src="app.js"></script>
+
+  <footer class="footer">
+    powered by <span>gpt-5.2.</span>
+  </footer>
+</body>
+</html>

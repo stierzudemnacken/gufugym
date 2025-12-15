@@ -1,0 +1,20 @@
+{
+  "name": "GYM",
+  "short_name": "GYM",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f0f0f0",
+  "theme_color": "#111111",
+  "icons": [
+    {
+      "src": "Crali.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "Crali.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

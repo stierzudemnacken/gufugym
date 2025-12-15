@@ -1,0 +1,104 @@
+@font-face {
+  font-family: 'YeezyFont';
+  src: url('yeezy_tstar-bold-webfont.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: 'YeezyFont', sans-serif;
+  background: white;
+  color: #111;
+  padding: 1.5rem;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: none;
+  background: none;
+  color: black;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  font-family: 'YeezyFont', sans-serif;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  padding: 0.5rem 0.5rem calc(0.5rem + env(safe-area-inset-bottom));
+  text-align: center;
+
+  font-size: 0.75rem;
+  color: #888;
+  opacity: 0.6;
+
+  background: transparent;
+  pointer-events: none; /* fühlt sich wie native App an */
+}
+
+.exercise {
+  background: white;
+  padding: 0.7rem;
+  margin-bottom: 0.5rem;
+  border-radius: 8px;
+}
+
+.exercise-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+}
+
+.exercise-header .button-group {
+  display:flex;
+  gap:0.5rem;
+}
+
+.exercise-header button {
+  margin-left: 0.5rem;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.9rem;
+  background: none;
+  color: black;
+}
+
+
+.pr-list {
+  margin-top: 0.5rem;
+  padding-left: 1rem;
+}
+
+.pr-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.3rem;
+}
+
+.old-pr {
+  text-decoration: line-through;
+  opacity: 0.6;
+  font-size: 0.9rem;
+}
+
+#status {
+  text-align: center;
+  color: green;
+  opacity: 0.8;
+  margin-top: 0.5rem;
+
+  position: fixed;                  /* fixiert auf dem Screen */
+  bottom: calc(2.5rem + env(safe-area-inset-bottom)); /* unten, iPhone-safe */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;                     /* über allem */
+}
