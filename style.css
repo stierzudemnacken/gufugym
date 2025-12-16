@@ -7,9 +7,20 @@
 
 body {
   font-family: 'YeezyFont', sans-serif;
+  height: 100%;
   background: white;
   color: #111;
   padding: 1.5rem;
+  padding-bottom: 0rem;
+  overflow-y: scroll;       /* Scrollen erlauben */
+  -ms-overflow-style: none; /* IE & Edge */
+  scrollbar-width: none;    /* Firefox */
+  margin: 0;
+}
+
+/* Webkit (Chrome, Safari, iOS) */
+html::-webkit-scrollbar, body::-webkit-scrollbar {
+  display: none;
 }
 
 h1 {
@@ -24,12 +35,11 @@ button {
   background: none;
   color: black;
   cursor: pointer;
-  /*margin-bottom: 1rem;*/
   font-family: 'YeezyFont', sans-serif;
 }
 
 .footer {
-  position: fixed;
+  position: relative;
   bottom: 0;
   left: 0;
   right: 0;
@@ -43,13 +53,25 @@ button {
 
   background: transparent;
   pointer-events: none; /* fühlt sich wie native App an */
+  
+  z-index: 0; /* hinter Exercises */
+}
+
+#exercise-list {
+  background: white;  /* gleiche Farbe wie Body */
+  position: relative;
+  z-index: 1;
+  margin-bottom: calc(3rem + env(safe-area-inset-bottom)); /* Abstand nach unten für Footer */
+  padding-bottom:0.2rem;
 }
 
 .exercise {
-  background: white;
+  position: relative;
+  background: white; /* gleiche Farbe wie Liste/Body */
   padding: 0.7rem;
   margin-bottom: 0.5rem;
   border-radius: 8px;
+  z-index: 1; 
 }
 
 .exercise-header {
@@ -66,12 +88,10 @@ button {
 
 .exercise-header button {
   margin-left: 0.5rem;
-  /*padding: 0.2rem 0.5rem;*/
   font-size: 0.9rem;
   background: none;
   color: black;
 }
-
 
 .pr-list {
   margin-top: 0.5rem;
@@ -96,18 +116,17 @@ button {
   opacity: 0.8;
   margin-top: 0.5rem;
 
-  position: fixed;                  /* fixiert auf dem Screen */
-  bottom: calc(2.5rem + env(safe-area-inset-bottom)); /* unten, iPhone-safe */
+  position: fixed;                  
+  bottom: calc(2.5rem + env(safe-area-inset-bottom)); 
   left: 50%;
   transform: translateX(-50%);
-  z-index: 1000;                     /* über allem */
+  z-index: 1000;                     
 }
 
 .delete-btn {
   font-family: sans-serif;
   font-weight: bold;
 }
-
 
 .addpr-btn {
   font-weight: bold;
@@ -177,6 +196,7 @@ body.dark-mode .powered-items span + span::before {
   justify-content: center; /* Titel horizontal zentriert */
   align-items: center;     /* Button auf gleicher Höhe wie Titel */
   margin-top: 2rem;
+  padding-bottom: 1.5rem;
 }
 
 .header-container h1 {
@@ -185,10 +205,19 @@ body.dark-mode .powered-items span + span::before {
 
 #toggleDarkMode {
   position: absolute;
-  right: 0;      /* Abstand vom rechten Rand des Containers */
+  right: 0;      
   font-size: 1.2rem;
   background: none;
   border: none;
   cursor: pointer;
   color: inherit;
+}
+
+/* Dark Mode Anpassung für Exercise-Liste */
+body.dark-mode #exercise-list {
+  background: #0c0c0c; /* gleiche Farbe wie Body im Dark Mode */
+}
+
+body.dark-mode .exercise {
+  background: #111; /* wie vorher, bleibt dunkler als die Liste für Kontrast */
 }
