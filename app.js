@@ -14,7 +14,7 @@ function renderExercises() {
     const exDiv = document.createElement("div");
     exDiv.className = "exercise";
     exDiv.setAttribute("draggable", true);
-    exDiv.dataset.index = index; // merken
+    // exDiv.dataset.index = index; // merken
 
     // --- Drag & Drop ---
     exDiv.addEventListener("dragstart", (e) => {
@@ -31,7 +31,8 @@ function renderExercises() {
     exDiv.addEventListener("drop", (e) => {
       e.preventDefault();
       const fromIndex = Number(e.dataTransfer.getData("text/plain"));
-      const toIndex = Number(exDiv.dataset.index);
+      //const toIndex = Number(exDiv.dataset.index);
+      const toIndex = index;
 
       if (fromIndex === toIndex) return;
 
@@ -89,11 +90,6 @@ function renderExercises() {
       latestDiv.textContent = `${latest.reps} × ${latest.weight} (${latest.date})`;
 
       if (sortedPRs.length > 1) {
-        const toggleBtn = document.createElement("button");
-        toggleBtn.textContent = "^";
-        toggleBtn.className = "toggleBtn";
-        toggleBtn.style.marginLeft = "0.5rem";
-
         const oldPrDiv = document.createElement("div");
         oldPrDiv.style.display = "none";
 
@@ -105,16 +101,18 @@ function renderExercises() {
           oldPrDiv.appendChild(prItem);
         });
 
-        toggleBtn.onclick = () => {
+        // 🔥 Klick auf neueste PR toggelt die Liste
+        latestDiv.classList.add("clickable");
+        latestDiv.onclick = () => {
           const isOpen = oldPrDiv.style.display !== "none";
           oldPrDiv.style.display = isOpen ? "none" : "block";
-          toggleBtn.classList.toggle("open", !isOpen);
+          latestDiv.classList.toggle("open", !isOpen);
         };
 
-        latestDiv.appendChild(toggleBtn);
         prDiv.appendChild(latestDiv);
         prDiv.appendChild(oldPrDiv);
-      } else {
+      }
+      else {
         prDiv.appendChild(latestDiv);
       }
     }
@@ -227,3 +225,51 @@ importInput.addEventListener("change", (e) => {
 function sortPRsByDate(prs) {
   return prs.sort((a, b) => new Date(b.date) - new Date(a.date));
 }
+
+const darkModeBtn = document.getElementById("toggleDarkMode");
+
+// Regulärer Dark Mode
+let darkMode = localStorage.getItem("darkMode") === "true";
+if (darkMode) document.body.classList.add("dark-mode");
+
+darkModeBtn.addEventListener("click", () => {
+  darkMode = !darkMode;
+  document.body.classList.toggle("dark-mode", darkMode);
+  localStorage.setItem("darkMode", darkMode);
+});
+
+// Easteregg: Flackern bei 5s halten
+let holdTimer;
+let flackerInterval;
+
+function startHold(e) {
+  e.preventDefault(); // verhindert unerwünschte Touch-Scrolls
+  holdTimer = setTimeout(() => {
+    let count = 0;
+    flackerInterval = setInterval(() => {
+      // Toggle dieselbe Klasse wie dein Darkmode
+      document.body.classList.toggle("dark-mode");
+      count++;
+      if (count >= 100) { // 20 Mal togglen = 10 Sekunden
+        clearInterval(flackerInterval);
+        const finalMode = !initialMode;
+        document.body.classList.remove("dark-mode");
+        localStorage.setItem("darkMode", finalMode);
+      }
+    }, 100);
+  }, 5000); // 5 Sekunden halten
+}
+
+function cancelHold() {
+  clearTimeout(holdTimer);
+}
+
+// Desktop
+darkModeBtn.addEventListener("mousedown", startHold);
+darkModeBtn.addEventListener("mouseup", cancelHold);
+darkModeBtn.addEventListener("mouseleave", cancelHold); // falls Maus rausgeht
+
+// Mobile
+darkModeBtn.addEventListener("touchstart", startHold, { passive: false });
+darkModeBtn.addEventListener("touchend", cancelHold);
+darkModeBtn.addEventListener("touchcancel", cancelHold);

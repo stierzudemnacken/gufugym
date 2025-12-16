@@ -1,37 +1,56 @@
-const CACHE_NAME = 'gufu-cache-v1';
+const CACHE_NAME = 'gufu-cache-v2';
+
 const FILES_TO_CACHE = [
   '/',
   '/index.html',
   '/style.css',
   '/app.js',
   '/apple-touch-icon.png',
-  '/manifest.json'
+  '/manifest.json',
+  '/favicon.png'
 ];
 
-// Install - Cache alle wichtigen Dateien
+// INSTALL
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(FILES_TO_CACHE))
-      .then(() => self.skipWaiting())
+    caches.open(CACHE_NAME).then(cache => cache.addAll(FILES_TO_CACHE))
   );
+  self.skipWaiting();
 });
 
-// Activate - Alte Caches löschen
+// ACTIVATE
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(keys =>
       Promise.all(
-        keys.filter(key => key !== CACHE_NAME)
-            .map(key => caches.delete(key))
+        keys
+          .filter(key => key !== CACHE_NAME)
+          .map(key => caches.delete(key))
       )
     )
   );
   self.clients.claim();
 });
 
-// Fetch - versuche zuerst aus Cache, sonst online
+// FETCH
 self.addEventListener('fetch', event => {
+  // Navigation (index.html)
+  if (event.request.mode === 'navigate') {
+    event.respondWith(
+      fetch(event.request)
+        .then(res => {
+          const copy = res.clone();
+          caches.open(CACHE_NAME).then(cache =>
+            cache.put('/index.html', copy)
+          );
+          return res;
+        })
+        .catch(() => caches.match('/index.html'))
+    );
+    return;
+  }
+
+  // Assets (CSS, JS, Icons)
   event.respondWith(
     caches.match(event.request)
       .then(cached => cached || fetch(event.request))

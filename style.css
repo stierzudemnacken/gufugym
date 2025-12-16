@@ -132,3 +132,63 @@ button {
   margin: 0 0.4rem;
   color: #888;
 }
+
+.pr-item.clickable {
+  cursor: pointer;
+}
+
+/* Dark Mode */
+body.dark-mode {
+  background: #0c0c0c;
+  color: #eee;
+}
+
+body.dark-mode .exercise {
+  background: #111;
+}
+
+body.dark-mode button {
+  color: #eee;
+}
+
+body.dark-mode .exercise-header button {
+  color: #eee;
+}
+
+body.dark-mode .old-pr {
+  color: #aaa;
+}
+
+body.dark-mode .footer {
+  color: #aaa;
+}
+
+body.dark-mode #status {
+  color: lightgreen;
+}
+
+body.dark-mode .powered-items span + span::before {
+  color: #aaa;
+}
+
+.header-container {
+  position: relative;
+  display: flex;
+  justify-content: center; /* Titel horizontal zentriert */
+  align-items: center;     /* Button auf gleicher Höhe wie Titel */
+  margin-top: 2rem;
+}
+
+.header-container h1 {
+  margin: 0;
+}
+
+#toggleDarkMode {
+  position: absolute;
+  right: 0;      /* Abstand vom rechten Rand des Containers */
+  font-size: 1.2rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+}
