@@ -90,7 +90,7 @@ function renderExercises() {
 
       if (sortedPRs.length > 1) {
         const toggleBtn = document.createElement("button");
-        toggleBtn.textContent = "⬇";
+        toggleBtn.textContent = "^";
         toggleBtn.className = "toggleBtn";
         toggleBtn.style.marginLeft = "0.5rem";
 

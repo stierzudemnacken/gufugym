@@ -34,7 +34,7 @@ button {
   left: 0;
   right: 0;
 
-  padding: 0.5rem 0.5rem calc(0.5rem + env(safe-area-inset-bottom));
+  padding: 0.5rem 0.5rem calc(1rem + env(safe-area-inset-bottom));
   text-align: center;
 
   font-size: 0.75rem;
@@ -117,7 +117,10 @@ button {
 .toggleBtn {
   padding-top: 0px;
   transition: transform 0.2s ease;
-  transform-origin: 50% 39%;
+  transform-origin: 50% 29%;
+  font-family: sans-serif;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 .toggleBtn.open {
