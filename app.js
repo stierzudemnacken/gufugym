@@ -58,6 +58,7 @@ function renderExercises() {
   // + PR Button
   const addPrBtn = document.createElement("button");
   addPrBtn.textContent = "+";
+  addPrBtn.classList.add("addpr-btn");
   addPrBtn.onclick = () => addPR(index);
   buttonGroup.appendChild(addPrBtn);
 
@@ -65,6 +66,7 @@ function renderExercises() {
   // Delete Button
   const delBtn = document.createElement("button");
   delBtn.textContent = "x";
+  delBtn.classList.add("delete-btn");
   delBtn.onclick = () => deleteExercise(index);
   buttonGroup.appendChild(delBtn);
 

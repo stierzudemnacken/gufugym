@@ -102,3 +102,15 @@ button {
   transform: translateX(-50%);
   z-index: 1000;                     /* über allem */
 }
+
+.delete-btn {
+  font-family: sans-serif;
+}
+
+.delete-btn:hover {
+  opacity: 0.6;
+}
+
+.addpr-btn:hover {
+  opacity: 0.6;
+}
