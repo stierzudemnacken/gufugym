@@ -40,7 +40,7 @@ function renderExercises() {
       exercises.splice(toIndex, 0, moved);
 
       // Re-render and save
-      saveAndRender("Exercises sorted");
+      saveAndRender("Sorted");
     });
 
     // --- Rest: header, PRs, buttons ---
@@ -91,6 +91,7 @@ function renderExercises() {
       if (sortedPRs.length > 1) {
         const toggleBtn = document.createElement("button");
         toggleBtn.textContent = "⬇";
+        toggleBtn.className = "toggleBtn";
         toggleBtn.style.marginLeft = "0.5rem";
 
         const oldPrDiv = document.createElement("div");
@@ -132,7 +133,7 @@ addExerciseBtn.addEventListener("click", () => {
   const name = prompt("EXERCISE");
   if (!name) return;
   exercises.push({ name, prs: [] });
-  saveAndRender("Exercise added");
+  saveAndRender("Added");
 });
 
 // Add new PR
@@ -148,14 +149,14 @@ function addPR(exIndex) {
   const date = prompt("(YYYY-MM-DD) [BLANK FOR TODAY]") || new Date().toISOString().slice(0,10);
 
   exercises[exIndex].prs.push({ weight, reps, date });
-  saveAndRender("PR added");
+  saveAndRender("Added");
 }
 
 // Delete exercise
 function deleteExercise(index) {
   if (!confirm(`Delete exercise "${exercises[index].name}"?`)) return;
   exercises.splice(index, 1);
-  saveAndRender("Exercise deleted");
+  saveAndRender("Deleted");
 }
 
 
@@ -171,7 +172,7 @@ exportBtn.addEventListener("click", () => {
   a.click();
   URL.revokeObjectURL(url);
 
-  showStatus("Backup exported");
+  showStatus("Exported");
 });
 
 // Helper: save to localStorage + render + status
@@ -215,9 +216,9 @@ importInput.addEventListener("change", (e) => {
       exercises = importedData;
       localStorage.setItem("exercises", JSON.stringify(exercises));
       renderExercises();
-      showStatus("Backup imported");
+      showStatus("Imported");
     } catch (err) {
-      alert("Invalid JSON file");
+      alert("Invalid JSON");
     }
   };
   reader.readAsText(file);
