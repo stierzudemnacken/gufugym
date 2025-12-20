@@ -39,11 +39,10 @@ button {
 }
 
 .footer {
-  position: relative;
+  position: fixed;                 /* FIXIERT am Bildschirm */
   bottom: 0;
   left: 0;
-  right: 0;
-
+  width: 100%;                     /* volle Breite */
   padding: 0.5rem 0.5rem calc(1rem + env(safe-area-inset-bottom));
   text-align: center;
 
@@ -51,10 +50,15 @@ button {
   color: #888;
   opacity: 0.6;
 
-  background: transparent;
-  pointer-events: none; /* fühlt sich wie native App an */
+  background: rgba(255, 255, 255, 0.9); /* leichtes Overlay, kann auf darkmode angepasst werden */
+  pointer-events: none;             /* weiterhin nicht klickbar */
   
-  z-index: 0; /* hinter Exercises */
+  z-index: 1000;                     /* immer über allen Exercises */
+}
+
+body.dark-mode .footer {
+  background: #0c0c0c;
+  color: #aaa;
 }
 
 #exercise-list {
@@ -211,6 +215,8 @@ body.dark-mode .powered-items span + span::before {
   border: none;
   cursor: pointer;
   color: inherit;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 /* Dark Mode Anpassung für Exercise-Liste */

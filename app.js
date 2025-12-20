@@ -146,7 +146,17 @@ function addPR(exIndex) {
   if (!reps) return;
   const date = prompt("(YYYY-MM-DD) [BLANK FOR TODAY]") || new Date().toISOString().slice(0,10);
 
-  exercises[exIndex].prs.push({ weight, reps, date });
+  const prs = exercises[exIndex].prs;
+
+  // prüfen ob es schon eine PR mit gleichem Datum gibt
+  const existingIndex = prs.findIndex(pr => pr.date === date);
+  if (existingIndex !== -1) {
+    // ersetzen
+    prs[existingIndex] = { weight, reps, date };
+  } else {
+    // neu hinzufügen
+    prs.push({ weight, reps, date });
+  }
   saveAndRender("Added");
 }
 
@@ -233,6 +243,12 @@ let darkMode = localStorage.getItem("darkMode") === "true";
 if (darkMode) document.body.classList.add("dark-mode");
 
 darkModeBtn.addEventListener("click", () => {
+  darkMode = !darkMode;
+  document.body.classList.toggle("dark-mode", darkMode);
+  localStorage.setItem("darkMode", darkMode);
+});
+darkModeBtn.addEventListener("touchend", (e) => {
+  e.preventDefault();   // verhindert doppeltes Auslösen
   darkMode = !darkMode;
   document.body.classList.toggle("dark-mode", darkMode);
   localStorage.setItem("darkMode", darkMode);
